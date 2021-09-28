@@ -12,13 +12,8 @@ Sources:
 
 ## modules 
 
-Each file with extension .py can be used as a module. The module is in source file ```module_source.py```, while it is imported as ```import module_source```. It's easy, when both the module source file and the importing file are in the same directory.
+Each file with extension .py can be used as a module. The module is in source file ```[module_source.py](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py)```, while it is imported as ```[import module_source](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py)```. In this example, both the module source file and the importing file are in the same directory.
 
-
-### example module
-
-- [source of a module_foo.py](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py) and example [using module_foo](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py) are in the same directory.
- 
 Lets import the module. (the module source includes a print statement ```print("module_foo is being imported")```)
 
 ```
@@ -114,7 +109,6 @@ The import with rename feature can be used to access python files in subdirector
 
 ```import module_foo_src.module_foo as mfoo```
 
-bla bla
 
 ### importing symbols info the namespace of the caller
 
