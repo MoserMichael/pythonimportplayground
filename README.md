@@ -10,9 +10,9 @@ Sources:
     https://docs.python.org/3/reference/import.html
     https://stackoverflow.com/questions/43059267/how-to-do-from-module-import-using-importlib
 
-## modules 
+## Modules 
 
-Each file with extension .py can be used as a module. The module is in source file ```[module_source.py](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py)```, while it is imported as ```[import module_source](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py)```. In this example, both the module source file and the importing file are in the same directory.
+Each file with extension .py can be used as a module. The module is in source file [module_source.py](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py), while it is imported as [import module_source](https://github.com/mosermichael/pythonimportplayground/tree/master/modules/example_all_imports/module_foo.py). In this example, both the module source file and the importing file are in the same directory.
 
 Lets import the module. (the module source includes a print statement ```print("module_foo is being imported")```)
 
@@ -56,8 +56,6 @@ print(foo)
 module_foo.print_foo("some stuff: ", 42)
 ```
 
-Interesting that even names with a leading underscore are visible via import of a module (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
-
 
 - Lets take a look at the properties of the ```module_foo``` variable
 
@@ -67,9 +65,11 @@ module_foo.__dict__ keys:  __name__, __doc__, __package__, __loader__, __spec__,
 ```
 
 This print statements shows all keys of the ```___dict__``` member for the import module variable.
-The ```__dict__``` member is a dictionary, and that one is listing all attributes of variable that is referring to a class.
+The ```__dict__``` member is a dictionary, and that one is listing all attributes of variable that is referring to a class. 
 
-Now all symbols defined by the module (both classes and methods) are part of the __dict__ member of the import variable!.
+Interesting that even names with a leading underscore are visible via import of a module (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
+
+Now all symbols defined by the module (both classes and methods) are part of the ```__dict__``` member of the import variable!.
 And the types of these members are just according to how they were defined in the module source files!
 
 ```
@@ -148,7 +148,7 @@ A Directory with an ```__init__.py``` is a python package, this directory can in
 
 Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
 
-An imported package foo must be a sub directory directly under any one of the directories listed in the sys.path list, the current directory is always part of that list.
+An imported package foo must be a sub directory directly under any one of the directories listed in the ```sys.path list```, the current directory is always part of that list.
 
 ```
 >>> import sys
@@ -158,7 +158,8 @@ An imported package foo must be a sub directory directly under any one of the di
 
 The first entry is '', meaning the directory where the script file is in.
 
-You can add directories to sys.path by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import.
+You can add directories to sys.path by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path```, before calling import.
+
 
 ```
 >>> import sys
@@ -166,9 +167,9 @@ You can add directories to sys.path by setting PYTHONPATH environment variable, 
 <class 'module'>
 ```
 
-At the importing side: and imported module is represented by a variable of type 'class module'; the namespace of that module (including built-in classes and functions) are part of module_name.__dict__
+At the importing side: and imported module is represented by a variable of type ```'class module'```; the namespace of that module (including built-in classes and functions) are part of ```module_name.__dict__```
 
-import .. as - this construct is renaming the variable of type 'class module', to act as an alias for the import name.
+```import .. as``` - this construct is renaming the variable of type ```'class module'```, to act as an alias for the import name.
 
 ```
 >>> import sys as system
