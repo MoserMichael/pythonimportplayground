@@ -1,5 +1,6 @@
 # The Python3 import playground
 
+I have been confused about python modules and packages, this text tries to clear the topic up.
 
 Sources:
 
@@ -91,6 +92,12 @@ Please note: in this case ```module_foo``` is also listing all modules imported 
 Now all symbols defined by the module (both classes and methods) are part of the __dict__ member of the import variable!.
 
 
+### Where do we put the module source file?
+
+An imported module must be a directory in the ```sys.path``` list, the current directory is always part of this list.
+You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import.
+
+
 ### import renames.
 
 There are other forms of import,
@@ -107,11 +114,13 @@ The import with rename feature can be used to access python files in subdirector
 
 ```import module_foo_src.module_foo as mfoo```
 
-However some say that this kind of import does not make the code more readable. The [Google style guide](https://google.github.io/styleguide/pyguide.html#s2.2-imports) does not recommend this approach.
+bla bla
 
 ### importing symbols info the namespace of the caller
 
 You can import symbols selectively into the calling program, as follows:
+
+However some say that this kind of import does not make the code more readable. The [Google style guide](https://google.github.io/styleguide/pyguide.html#s2.2-imports) does not recommend this approach.
 
 ```
 from  module_foo import print_foo, Foo
@@ -125,6 +134,7 @@ You can also import all symbols from module_foo right into your own namespace
 from module_foo import *
 ```
 
+
 ### multiple imports
 
 You can also import several packages from the same import statements, technically you can do
@@ -137,11 +147,11 @@ However pylint gives you a warning for multiple imports in the same line, theref
 
 ## packages
 
-A Directory with an ```__init__.py``` is a python package, this directory can include more than one python file, the idea of a package is to treat all the python files in this directory as a whole. (you would get and error in python versions prior to 3.3)
+A Directory with an ```__init__.py``` is a python package, this directory can include more than one python file, the idea of a package is to treat all the python files in this directory as a whole.
 
 Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
 
-An imported module foo must be a directory in the sys.path list, alternatively it can be a subdirectory of the current directory for a script.
+An imported package foo must be a directory in the sys.path list, alternatively it can be a subdirectory of the current directory for a script.
 
 ```
 >>> import sys
@@ -151,7 +161,7 @@ An imported module foo must be a directory in the sys.path list, alternatively i
 
 The first entry is '', meaning the directory where the script file is in.
 
-You can add directories to sys.path by setting PYTHONPATH environment variable, before running python exe, or by explicitly adding your directory to ```sys.path``, before calling import.
+You can add directories to sys.path by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import.
 
 ```
 >>> import sys
@@ -198,7 +208,7 @@ import package_name.__init__.py as package_dir
 
 I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
-Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__`` member, and add these to the global namespace returned by the ```global()``` built-in function.
+Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
 
 
