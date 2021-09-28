@@ -25,7 +25,7 @@ module_foo is being imported
 after: import module_foo
 ```
 
-The imported module is being parsed and run during the import statement. Python is a dynamic language, and there is no way to determine the interface of a module, without running it. This can have it's uses: you can add some module specific initialisations in the module, these are run just once at import time.
+The imported module is being parsed and run during the import statement. Python is a dynamic language, and there is no way to determine the interface of a module, without running it. This can have it's uses: you can add some module specific initialisations in the global scope of the module, these are run just once at import time.
 
 Often you can see the following lines in some python code:
 
@@ -34,9 +34,7 @@ if __name__ == '__main__':
   run_main_function()
 ```
 
-This means that the function ```run_main_function``` will be run only when the file is run as a script (meaning it is run as ```python3 module_file.py```), ```__name__``` is a built-in variable that holds the name of the current module, it defaults to ```"__main__"``` for file that is directly run by the python interpreter.
-
-Interesting that even names with a leading underscore are visble via import (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
+This means that the function ```run_main_function``` will be run only when the file is run as a script (meaning it is run as ```python3 module_file.py```), ```__name__``` is a built-in variable that holds the name of the current module, it defaults to ```"__main__"``` for the file that is directly run by the python interpreter.
 
 How does the module look like on the importing side?
 
@@ -57,6 +55,10 @@ print(foo)
 
 module_foo.print_foo("some stuff: ", 42)
 ```
+
+Interesting that even names with a leading underscore are visible via import of a module (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
+
+
 - Lets take a look at the properties of the ```module_foo``` variable
 
 ```
@@ -65,8 +67,9 @@ module_foo.__dict__ keys:  __name__, __doc__, __package__, __loader__, __spec__,
 ```
 
 This print statements shows all keys of the ```___dict__``` member for the import module variable.
-The ```__dict__``` member is a dictionary, and that one is listing all attributes of the module_foo variable. 
+The ```__dict__``` member is a dictionary, and that one is listing all attributes of variable that is referring to a class.
 
+Now all symbols defined by the module (both classes and methods) are part of the __dict__ member of the import variable!.
 And the types of these members are just according to how they were defined in the module source files!
 
 ```
@@ -80,17 +83,15 @@ module_foo.__dict__ key:  print_foo value-type:  <class 'function'>
 module_foo.__dict__ key:  _internal_print value-type:  <class 'function'>
 ```
 
-That makes sense: the call of  ```module_foo.print_foo("some stuff: ", 42)``` is just a short form for a regular object call ```module_foo.__dict__['module_foo'].print_foo("some stuff :", 42)``` An imported module is just an instance of a module object, where each exported class or method is just a member of that module object!
+That makes sense: the call of  ```module_foo.print_foo("some stuff: ", 42)``` is just a short form for a regular object call ```module_foo.__dict__['module_foo'].print_foo("some stuff :", 42)``` An imported module is just an instance of a module object, where each exported class or method is a member of that module object!
 
 Please note: in this case ```module_foo``` is also listing all modules imported by the imported module (like module ```datetime```)
-
-Now all symbols defined by the module (both classes and methods) are part of the __dict__ member of the import variable!.
 
 
 ### Where do we put the module source file?
 
 An imported module must be a directory in the ```sys.path``` list, the current directory is always part of this list.
-You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import.
+You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import. (Example [source imorting the module](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/use_foo.py) and [source of the module]( https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py )
 
 
 ### import renames.
@@ -106,6 +107,7 @@ Here the variable defined by the runtime is renamed to mfoo, and the code that u
 ### import renames with directories.
 
 The import with rename feature can be used to access python files in subdirectores: module_foo_src is in a sub directory, relative to  module_source.py
+See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py) and [module usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py)
 
 ```import module_foo_src.module_foo as mfoo```
 
@@ -122,6 +124,7 @@ from  module_foo import print_foo, Foo
 print_foo("some stuff: ", 42)
 
 ```
+
 You can also import all symbols from module_foo right into your own namespace
 
 ```
@@ -145,7 +148,7 @@ A Directory with an ```__init__.py``` is a python package, this directory can in
 
 Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
 
-An imported package foo must be a directory in the sys.path list, alternatively it can be a subdirectory of the current directory for a script.
+An imported package foo must be a sub directory directly under any one of the directories listed in the sys.path list, the current directory is always part of that list.
 
 ```
 >>> import sys
@@ -173,7 +176,7 @@ import .. as - this construct is renaming the variable of type 'class module', t
 ['', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python39.zip', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/lib-dynload', '/Users/michaelmo/Library/Python/3.9/lib/python/site-packages', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages']
 ```
 
-sys.modules - is a global variable, it's a dictionary that maps import name to variable of type <class 'module'>, It stands for$ all currently imported modules; import checks first if a modules is already imported,
+sys.modules - is a global variable, it's a dictionary that maps import name to variable of type <class 'module'>, It stands for all currently imported modules; import first checks if a modules is already imported, to avoid loading the same module twice. 
 
 ```
 >>> import sys
@@ -181,12 +184,22 @@ sys.modules - is a global variable, it's a dictionary that maps import name to v
 dict_keys(['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings', '_weakref', '_io', 'marshal', 'posix', '_frozen_importlib_external', 'time', 'zipimport', '_codecs', 'codecs', 'encodings.aliases', 'encodings', 'encodings.utf_8', '_signal', 'encodings.latin_1', '_abc', 'abc', 'io', '__main__', '_stat', 'stat', '_collections_abc', 'genericpath', 'posixpath', 'os.path', 'os', '_sitebuiltins', '_locale', '_bootlocale', 'site', 'readline', 'atexit', 'rlcompleter'])
 ```
 
+This map is also listing all of the built-in modules.
+
 ### packages
 
 Here again is an example package. [source of package foo](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/example/package_foo) and example [using package package_foo](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/example/use_foo.py) 
 
 
-The tricky part in writing a package is the ```__init__.py``` , this file has to import all other files as modules, as follows:
+The ```__init.py__`` module is run when a package is being loaded. The namespace of this module is made available to the importer of the package.
+Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
+
+```
+import package_name.__init__  as package_name
+```
+
+
+The tricky part in writing a package is the ```__init__.py``` file, this file has to import all other files as modules, as follows:
 
 ```
 from  .file1 import  *
@@ -194,15 +207,9 @@ from  .file1 import  *
 
 This is a relative import, it imports the module file1 in file1.py from the current directory, and adds all symbols to the namespace of the __init__.py file (except for names with a leading underscore, these are treated as package private names). Having these symbols as part of the ```__init__.py``` namespace is the condition for making these symbols available upon import.
 
-Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
-
-```
-import package_name.__init__.py as package_dir
-```
-
 I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
 
-
+d
