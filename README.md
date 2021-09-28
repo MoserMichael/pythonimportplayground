@@ -68,7 +68,7 @@ module_foo.print_foo("some stuff: ", 42)
 module_foo.__dict__ keys:  __name__, __doc__, __package__, __loader__, __spec__, __file__, __cached__, __builtins__, datetime, Foo, print_foo, _internal_print
 ```
 
-This print statements shows all keys of the `___dict__``` member for the import module variable.
+This print statements shows all keys of the ```___dict__``` member for the import module variable.
 The ```__dict__``` member is a dictionary, and that one is listing all attributes of the module_foo variable. 
 
 And the types of these members are just according to how they were defined in the module source files!
@@ -95,17 +95,17 @@ Now all symbols defined by the module (both classes and methods) are part of the
 
 There are other forms of import,
 
-import module_foo as mfoo
+```import module_foo as mfoo```
 
 Here the variable defined by the runtime is renamed to mfoo, and the code that uses the module looks as follows
 
-mfoo.print_foo("some stuff: ", 42)
+```mfoo.print_foo("some stuff: ", 42)```
 
 ### import renames with directories.
 
 The import with rename feature can be used to access python files in subdirectores: module_foo_src is in a sub directory, relative to  module_source.py
 
-import module_foo_src.module_foo as mfoo
+```import module_foo_src.module_foo as mfoo```
 
 However some say that this kind of import does not make the code more readable. The [Google style guide](https://google.github.io/styleguide/pyguide.html#s2.2-imports) does not recommend this approach.
 
@@ -179,7 +179,7 @@ dict_keys(['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings
 
 ### packages
 
-Here again is an example package. @@@
+Here again is an example package. [source of package foo](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/example/package_foo) and example [using package package_foo](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/example/use_foo.py) 
 
 
 The tricky part in writing a package is the ```__init__.py``` , this file has to import all other files as modules, as follows:
@@ -196,7 +196,7 @@ Technically, importing a package is the same to importing the ```__init__.py``` 
 import package_name.__init__.py as package_dir
 ```
 
-I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See @@@ this example;  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
+I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__`` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
