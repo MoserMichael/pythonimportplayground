@@ -38,9 +38,9 @@ if __name__ == '__main__':
   run_main_function()
 ```
 
-This means that the function ```run_main_function``` will be run only when the file is run as a script (meaning it is run as ```python3 module_file.py```), __name__ is a built-in variable that holds the name of the current module, it defaults to "__main__" for file that is directly run by the python interpreter.
+This means that the function ```run_main_function``` will be run only when the file is run as a script (meaning it is run as ```python3 module_file.py```), ```__name__``` is a built-in variable that holds the name of the current module, it defaults to ```"__main__"``` for file that is directly run by the python interpreter.
 
-Interesting that even names with a leading underscore are visble via import (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols.
+Interesting that even names with a leading underscore are visble via import (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
 
 How does the module look like on the importing side?
 
@@ -137,9 +137,9 @@ However pylint gives you a warning for multiple imports in the same line, theref
 
 ## packages
 
-A Directory with an __init__.py is a python package, this directory can include more than one python file, the idea of a package is to treat all the python files in this directory as a whole. (you would get and error in python versions prior to 3.3)
+A Directory with an ```__init__.py``` is a python package, this directory can include more than one python file, the idea of a package is to treat all the python files in this directory as a whole. (you would get and error in python versions prior to 3.3)
 
-Once a package is imported: its __init__.py in that directory is implicitly run, in order to determine the interface of that package.
+Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
 
 An imported module foo must be a directory in the sys.path list, alternatively it can be a subdirectory of the current directory for a script.
 
@@ -188,15 +188,15 @@ The tricky part in writing a package is the ```__init__.py``` , this file has to
 from  .file1 import  *
 ```
 
-This is a relative import, it imports the module file1 in file1.py from the current directory, and adds all symbols to the namespace of the __init__.py file (except for names with a leading underscore, these are treated as package private names). Having these symbols as part of the __init__.py namespace is the condition for making these symbols available upon import.
+This is a relative import, it imports the module file1 in file1.py from the current directory, and adds all symbols to the namespace of the __init__.py file (except for names with a leading underscore, these are treated as package private names). Having these symbols as part of the ```__init__.py``` namespace is the condition for making these symbols available upon import.
 
-Technically, importing a package is the same to importing the __init__.py module of a package. It's the same as:
+Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
 
 ```
 import package_name.__init__.py as package_dir
 ```
 
-I sometimes forget to include a module from the __init__.py file, It is possible to include all modules from the same directory as the __init__.py file. See @@@ this example;  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  __init__.py. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
+I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See @@@ this example;  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__`` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
