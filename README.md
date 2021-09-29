@@ -211,5 +211,3 @@ I sometimes forget to include a module from the ```__init__.py``` file, It is po
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
-
-d
