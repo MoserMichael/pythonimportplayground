@@ -121,6 +121,7 @@ See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/
 
 ```import module_foo_src.module_foo as mfoo```
 
+Please note that you can only get into one directory level beneath any directory that is listed under the python import path. The import path includes the current directory of the main module,
 
 ### Importing symbols info the namespace of the caller
 
