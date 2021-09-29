@@ -176,9 +176,8 @@ You can add directories to sys.path by setting PYTHONPATH environment variable, 
 <class 'module'>
 ```
 
-At the importing side: and imported module is represented by a variable of type ```'class module'```; the namespace of that module (including built-in classes and functions) are part of ```module_name.__dict__```
+At the importing side: and imported package is represented by a variable of type ```'class module'```; the namespace of that package (including built-in classes and functions) are part of ```package_name.__dict__```
 
-```import .. as``` - this construct is renaming the variable of type ```'class module'```, to act as an alias for the import name.
 
 ```
 >>> import sys as system
@@ -186,7 +185,10 @@ At the importing side: and imported module is represented by a variable of type 
 ['', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python39.zip', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/lib-dynload', '/Users/michaelmo/Library/Python/3.9/lib/python/site-packages', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages']
 ```
 
-sys.modules - is a global variable, it's a dictionary that maps import name to variable of type <class 'module'>, It stands for all currently imported modules; import first checks if a modules is already imported, to avoid loading the same module twice. 
+```import sys as system``` - this construct is renaming the variable of type ```'class module'```, to act as an alias for the import name.
+
+```sys.modules``` - is a global variable, it's a dictionary that maps import name to variable of type <class 'module'>, It stands for all currently imported modules and packages; import first checks if a package is already imported, to avoid loading the same package twice. 
+
 
 ```
 >>> import sys
