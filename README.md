@@ -1,6 +1,6 @@
 # The Python3 import playground
 
-I have been confused about python modules and packages, this text tries to clear the topic up.
+I have been confused about python modules and packages, this text tries to clear the topic up a bit.
 
 Sources:
 
