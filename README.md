@@ -116,14 +116,14 @@ See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/
 
 You can import symbols selectively into the calling program, as follows:
 
-However some say that this kind of import does not make the code more readable. The [Google style guide](https://google.github.io/styleguide/pyguide.html#s2.2-imports) does not recommend this approach.
-
 ```
 from  module_foo import print_foo, Foo
 
 print_foo("some stuff: ", 42)
 
 ```
+
+However some say that this kind of import does not make the code more readable. The [Google style guide](https://google.github.io/styleguide/pyguide.html#s2.2-imports) does not recommend this approach.
 
 You can also import all symbols from module_foo right into your own namespace
 
@@ -210,4 +210,27 @@ This is a relative import, it imports the module file1 in file1.py from the curr
 I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
+
+### packages with sub packages
+
+An example of a package with sub-packages [package source]() [package usage]()
+```
+├── package_foo
+│   ├── __init__.py
+│   ├── sub_package_one
+│   │   ├── __init__.py
+│   │   └── file1.py
+│   └── sub_package_two
+│       ├── __init__.py
+│       └── file2.py
+├── use_foo.py
+└── use_module_import.py
+```
+
+Here the [__init__.py]() file of the main package needs to import the sub packages into its namespace. It is not possible to import a sub package selectively, you can import package directories that are directly under any one of the directories in the module search path (that includes the current directory)
+
+```
+from  .sub_package_one import  *
+from  .sub_package_two import  *
+```
 
