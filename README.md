@@ -65,12 +65,7 @@ module_foo.__dict__ keys:  __name__, __doc__, __package__, __loader__, __spec__,
 ```
 
 This print statements shows all keys of the ```___dict__``` member for the import module variable.
-The ```__dict__``` member is a dictionary, and that one is listing all attributes of variable that is referring to a class. 
-
-Interesting that even names with a leading underscore are visible via import of a module (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` file)
-
-Now all symbols defined by the module (both classes and methods) are part of the ```__dict__``` member of the import variable!.
-And the types of these members are just according to how they were defined in the module source files!
+The ```__dict__``` member is a dictionary and it maps the names of object instance attributes to their implementation. A data attribute is mapped to it's instance object, a member function attribute refers to an instance of class Function. See as follows:
 
 ```
 >>> for key, value in module_foo.__dict__.items():
@@ -84,6 +79,10 @@ module_foo.__dict__ key:  _internal_print value-type:  <class 'function'>
 ```
 
 That makes sense: the call of  ```module_foo.print_foo("some stuff: ", 42)``` is just a short form for a regular object call ```module_foo.__dict__['module_foo'].print_foo("some stuff :", 42)``` An imported module is just an instance of a module object, where each exported class or method is a member of that module object!
+
+
+Interesting that even names with a leading underscore are visible via import of a module (although pylint is giving a warning if you use them, and this is regarded as very bad style). Importing from a package does not expose these symbols (unless defined in the ```__init__.py``` module)
+
 
 Please note: in this case ```module_foo``` is also listing all modules imported by the imported module (like module ```datetime```)
 
@@ -103,6 +102,17 @@ There are other forms of import,
 Here the variable defined by the runtime is renamed to mfoo, and the code that uses the module looks as follows
 
 ```mfoo.print_foo("some stuff: ", 42)```
+
+You will sometimes see the following kind of imports in both modules and packages.
+
+```
+import math as _math
+import os as _os
+```
+
+This turns the imported package name into a private symbol, so that the import of packages will not turn into symbols when importing the module as follows;
+```from module_name import *``` - this form of import adds all symbols from the module to the current namespace. See [example](https://github.com/python/cpython/blob/e046aabbe386fdf32bae6ffb7fae5ce479fd10c6/Lib/pprint.py#L37)
+
 
 ### Import renames with directories.
 
@@ -141,6 +151,19 @@ import os, sys as system, pathlib
 ```
 
 However pylint gives you a warning for multiple imports in the same line, therefore it is not a good thing to do.
+
+### Exceptions that occur during module import
+
+you get an ImportError exception if a problem occurred during import. This can be used to choose alternative versions of a library.
+
+```
+try:
+    import re2 as re
+except ImportError:
+    import re
+```
+
+This example includes the [re2](https://github.com/google/re2) regular expression engine, if that is not installed, then it falls back to the compatible regular expression module [re](https://docs.python.org/3/library/re.html)
 
 ## Packages
 
