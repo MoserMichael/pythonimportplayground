@@ -224,6 +224,19 @@ dict_keys(['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings
 
 This map is also listing all of the built-in modules.
 
+```
+>>> import _frozen_importlib
+>>> print(_frozen_importlib.__doc__)
+Core implementation of import.
+
+This module is NOT meant to be directly imported! It has been designed such
+that it can be bootstrapped into Python as the implementation of import. As
+such it requires the injection of specific modules and attributes in order to
+work. One should use importlib as the public-facing version of this module.
+```
+
+The ```__doc__``` member of the module variable is the docstring defined for the module. Function objects also have such a member variable
+
 ### Writing the __init__.py file
 
 
