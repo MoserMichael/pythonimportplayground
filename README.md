@@ -213,7 +213,8 @@ Next, the namespace of that module is merged with the current namespace, it does
 
 ### packages with sub packages
 
-An example of a package with sub-packages [package source]() [package usage]()
+An example of a package with sub-packages [package source](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/nested_packages/package_foo) and [package usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/use_foo.py)
+
 ```
 ├── package_foo
 │   ├── __init__.py
@@ -227,7 +228,7 @@ An example of a package with sub-packages [package source]() [package usage]()
 └── use_module_import.py
 ```
 
-Here the [__init__.py]() file of the main package needs to import the sub packages into its namespace. It is not possible to import a sub package selectively, you can import package directories that are directly under any one of the directories in the module search path (that includes the current directory)
+Here the [__init__.py](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/package_foo/__init__.py) file of the main package needs to import the sub packages into its namespace. It is not possible to import a sub package selectively, you can import package directories that are directly under any one of the directories in the module search path (that includes the current directory)
 
 ```
 from  .sub_package_one import  *
