@@ -273,7 +273,7 @@ import package_foo.sub_package_one as sub_package_one
 
 foo = sub_package_one.Foo("gadget")
 ```
-The idea is that package_foo needs an __init__.py file in order to count as a package, prior to python3.3 a package import would fail and you could not resolve the import path ```package_foo.sub_package_one``` for this reason. This problem is then solved with an empty ```__init__.py```  file in the package_foo directory. However this changed with with Python3.3, for later versions you no longer need the empty ```__init__.py``` file, an import of an empty directory does not fail for later versions.
+The idea is that package_foo needs an ```__init__.py``` file in order to count as a package, without such a file, a package import would fail prior to python version 3.3, and you could not resolve the import path ```package_foo.sub_package_one``` for this reason. This problem is then solved with an empty ```__init__.py```  file in the package_foo directory. However this changed with with Python3.3, for later versions you no longer need the empty ```__init__.py``` file, an import of a directory without ```__init__.py``` does not fail for later versions.
 
 # Conclusion
 
