@@ -90,7 +90,7 @@ Please note: in this case ```module_foo``` is also listing all modules imported 
 ### Where do we put the module source file?
 
 An imported module must be a directory in the ```sys.path``` list, the current directory is always part of this list.
-You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import. (Example [source imorting the module](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/use_foo.py) and [source of the module]( https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py )
+You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path```, before calling import. (Example [source imorting the module](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/use_foo.py) and [source of the module]( https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py )
 
 
 ### Import renames.
