@@ -154,7 +154,7 @@ However pylint gives you a warning for multiple imports in the same line, theref
 
 ### Exceptions that occur during module import
 
-you get an ImportError exception if a problem occurred during import. This can be used to choose alternative versions of a library.
+You get an ImportError exception if the python runtime ran into a problem during import. This can be used to choose between alternative versions of a library.
 
 ```
 try:
@@ -164,6 +164,8 @@ except ImportError:
 ```
 
 This example includes the [re2](https://github.com/google/re2) regular expression engine, if that is not installed, then it falls back to the compatible regular expression module [re](https://docs.python.org/3/library/re.html)
+
+However when the imported module did run code in its global scope that threw a regular error like ValueError, then you will get a ValueError exception.
 
 ## Packages
 
