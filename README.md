@@ -150,7 +150,7 @@ A Directory with an ```__init__.py``` is a python package, this directory can in
 
 Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
 
-The ```__init.py__`` module is run when a package is being loaded. The namespace of this module is made available to the importer of the package.
+The ```__init.py__``` module is run when a package is imported. The namespace of this module is made available to the importer of the package.
 Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
 
 ```
