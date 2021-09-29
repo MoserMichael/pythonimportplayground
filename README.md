@@ -94,7 +94,7 @@ An imported module must be a directory in the ```sys.path``` list, the current d
 You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path``, before calling import. (Example [source imorting the module](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/use_foo.py) and [source of the module]( https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py )
 
 
-### import renames.
+### Import renames.
 
 There are other forms of import,
 
@@ -104,7 +104,7 @@ Here the variable defined by the runtime is renamed to mfoo, and the code that u
 
 ```mfoo.print_foo("some stuff: ", 42)```
 
-### import renames with directories.
+### Import renames with directories.
 
 The import with rename feature can be used to access python files in subdirectores: module_foo_src is in a sub directory, relative to  module_source.py
 See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py) and [module usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py)
@@ -112,7 +112,7 @@ See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/
 ```import module_foo_src.module_foo as mfoo```
 
 
-### importing symbols info the namespace of the caller
+### Importing symbols info the namespace of the caller
 
 You can import symbols selectively into the calling program, as follows:
 
@@ -132,7 +132,7 @@ from module_foo import *
 ```
 
 
-### multiple imports
+### Multiple imports
 
 You can also import several packages from the same import statements, technically you can do
 
@@ -142,7 +142,7 @@ import os, sys as system, pathlib
 
 However pylint gives you a warning for multiple imports in the same line, therefore it is not a good thing to do.
 
-## packages
+## Packages
 
 Here again is an example package. [source of package foo](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/example/package_foo) and example [using package package_foo](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/example/use_foo.py) 
 
@@ -196,7 +196,7 @@ dict_keys(['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings
 
 This map is also listing all of the built-in modules.
 
-### writing the __init__.py file
+### Writing the __init__.py file
 
 
 The tricky part in writing a package is the ```__init__.py``` file, this file has to import all other files as modules, as follows:
@@ -211,7 +211,7 @@ I sometimes forget to include a module from the ```__init__.py``` file, It is po
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
-### packages with sub packages
+### Packages with sub packages
 
 An example of a package with sub-packages [package source](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/nested_packages/package_foo) and [package usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/use_foo.py)
 
