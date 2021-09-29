@@ -263,6 +263,18 @@ from  .sub_package_one import  *
 from  .sub_package_two import  *
 ```
 
+### the curious case of the empty __init__.py file.
+
+Sometimes there is an empty ```___init__.py``` file in the ```package_foo``` directory.
+That enables us to do directly import the sub package files
+
+```
+import package_foo.sub_package_one as sub_package_one
+
+foo = sub_package_one.Foo("gadget")
+```
+The idea is that package_foo needs an __init__.py file in order to count as a package, prior to python3.3 a package import would fail and you could not resolve the import path ```package_foo.sub_package_one``` for this reason. This problem is then solved with an empty ```__init__.py```  file in the package_foo directory. However this changed with with Python3.3, for later versions you no longer need the empty ```__init__.py``` file, an import of an empty directory does not fail for later versions.
+
 # Conclusion
 
 I hope that this text has cleared the topic of python import system. Python is a relatively simple language, however there are a lot of usage patterns that one has to get used to. These are not always obvious from the python documentation.
