@@ -263,3 +263,6 @@ from  .sub_package_one import  *
 from  .sub_package_two import  *
 ```
 
+# Conclusion
+
+I hope that this text has cleared the topic of python import system. Python is a relatively simple language, however there are a lot of usage patterns that one has to get used to. These are not always obvious from the python documentation.
