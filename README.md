@@ -256,7 +256,7 @@ An example of a package with sub-packages [package source](https://github.com/Mo
 └── use_module_import.py
 ```
 
-Here the [__init__.py](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/package_foo/__init__.py) file of the main package needs to import the sub packages into its namespace. It is not possible to import a sub package selectively, you can import package directories that are directly under any one of the directories in the module search path (that includes the current directory)
+Here the [\_\_init\_\_.py](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/package_foo/__init__.py) file of the main package needs to import the sub packages into its namespace. It is not possible to import a sub package selectively, you can import package directories that are directly under any one of the directories in the module search path (that includes the current directory)
 
 ```
 from  .sub_package_one import  *
