@@ -144,9 +144,18 @@ However pylint gives you a warning for multiple imports in the same line, theref
 
 ## packages
 
+Here again is an example package. [source of package foo](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/example/package_foo) and example [using package package_foo](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/example/use_foo.py) 
+
 A Directory with an ```__init__.py``` is a python package, this directory can include more than one python file, the idea of a package is to treat all the python files in this directory as a whole.
 
 Once a package is imported: its ```__init__.py``` in that directory is implicitly run, in order to determine the interface of that package.
+
+The ```__init.py__`` module is run when a package is being loaded. The namespace of this module is made available to the importer of the package.
+Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
+
+```
+import package_name.__init__  as package_name
+```
 
 An imported package foo must be a sub directory directly under any one of the directories listed in the ```sys.path list```, the current directory is always part of that list.
 
@@ -187,17 +196,7 @@ dict_keys(['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings
 
 This map is also listing all of the built-in modules.
 
-### packages
-
-Here again is an example package. [source of package foo](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/example/package_foo) and example [using package package_foo](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/example/use_foo.py) 
-
-
-The ```__init.py__`` module is run when a package is being loaded. The namespace of this module is made available to the importer of the package.
-Technically, importing a package is the same to importing the ```__init__.py``` module of a package. It's the same as:
-
-```
-import package_name.__init__  as package_name
-```
+### writing the __init__.py file
 
 
 The tricky part in writing a package is the ```__init__.py``` file, this file has to import all other files as modules, as follows:
