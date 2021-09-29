@@ -93,7 +93,7 @@ An imported module must be a directory in the ```sys.path``` list, the current d
 You can add directories to ```sys.path``` by setting PYTHONPATH environment variable, before running python executable, or by explicitly adding your directory to ```sys.path```, before calling import. (Example [source imorting the module](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/use_foo.py) and [source of the module]( https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py )
 
 
-### Import renames.
+### Import renames
 
 There are other forms of import,
 
@@ -114,7 +114,7 @@ This turns the imported package name into a private symbol, so that the import o
 ```from module_name import *``` - this form of import adds all symbols from the module to the current namespace. See [example](https://github.com/python/cpython/blob/e046aabbe386fdf32bae6ffb7fae5ce479fd10c6/Lib/pprint.py#L37)
 
 
-### Import renames with directories.
+### Import renames with directories
 
 The import with rename feature can be used to access python files in subdirectores: module_foo_src is in a sub directory, relative to  module_source.py
 See [module source](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py) and [module usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/modules/example_modify_sys_path/another_root/module_foo.py)
@@ -237,7 +237,7 @@ work. One should use importlib as the public-facing version of this module.
 
 The ```__doc__``` member of the module variable is the docstring defined for the module. Function objects also have such a member variable
 
-### Writing the __init__.py file
+### Writing the \_\_init\_\_.py file
 
 
 The tricky part in writing a package is the ```__init__.py``` file, this file has to import all other files as modules, as follows:
@@ -276,7 +276,7 @@ from  .sub_package_one import  *
 from  .sub_package_two import  *
 ```
 
-### the curious case of the empty __init__.py file.
+### The curious case of the empty \_\_init\_\_.py file
 
 Sometimes there is an empty ```___init__.py``` file in the ```package_foo``` directory.
 That enables us to do directly import the sub package files
