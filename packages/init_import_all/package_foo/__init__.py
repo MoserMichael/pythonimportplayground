@@ -19,16 +19,23 @@ def _import_all():
 
         # import files with extension .py, but not __init__.py
         if split[-1] == '.py' and base != "__init__":
-            
+
             # import module with from the current package.
             mod_var = _importlib.import_module( '.' + base, __package__)
 
             # merge the 'namepace' of the imported module with the current module
             for sym, val in mod_var.__dict__.items():
                 # do not import private symbols.
-                if sym[:1] != "-":
+                if sym[:1] != "_":
                     # add the symbol to the current namespace
                     globals().update({ sym :  val})
+
+
+                if sym == "__all__":
+                    if not "__all__" in globals():
+                        globals()["__all__"] = []
+                    globals()["__all__"] += val
+
 
 
 _import_all()

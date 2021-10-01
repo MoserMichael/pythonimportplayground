@@ -260,6 +260,10 @@ I sometimes forget to include a module from the ```__init__.py``` file, It is po
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
+The function also builds the ```__all__``` member of the package, by appending the ```__all__``` member of each module to the ```__all__``` list from the ```__init__.py``` file. 
+
+It's a nice generic function, it buys you some convenience at the expense of the time to load the module, but this kind of trade off very frequent...
+
 ### Packages with sub packages
 
 An example of a package with sub-packages [package source](https://github.com/MoserMichael/pythonimportplayground/tree/master/packages/nested_packages/package_foo) and [package usage](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/nested_packages/use_foo.py)

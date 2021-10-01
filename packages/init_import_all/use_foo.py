@@ -26,6 +26,8 @@ print("package_foo.__name__ : ", package_foo.__name__ )
 print("package_foo.__package__ : ", package_foo.__package__)
 print("package_foo.__cached__ : ", package_foo.__cached__)
 print("package_foo.__loader__ : ", type(package_foo.__loader__) )
+print("package_foo.__all__ : ", package_foo.__all__ )
+
 
 
 

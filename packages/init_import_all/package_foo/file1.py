@@ -1,6 +1,8 @@
 
 import datetime as _datetime
 
+__all__ = [ "Foo" ]
+
 class Foo:
     def __init__(self, name):
         self.name = name
