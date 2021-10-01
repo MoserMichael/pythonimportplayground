@@ -256,13 +256,13 @@ from  .file1 import  *
 
 This is a relative import, it imports the module file1 in file1.py from the current directory, and adds all symbols to the namespace of the __init__.py file (except for names with a leading underscore, these are treated as package private names). Having these symbols as part of the ```__init__.py``` namespace is the condition for making these symbols available upon import.
 
-I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as __init__.py. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
+I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as ```__init__.py```. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
 The function also builds the ```__all__``` member of the package, by appending the ```__all__``` member of each module to the ```__all__``` list from the ```__init__.py``` file. 
 
-It's a nice generic function, it buys you some convenience at the expense of the time to load the module, but this kind of trade off very frequent...
+The ```_import_all``` function from this example is a nice generic function, it buys you some convenience at the expense of the time to load the module, but this kind of trade off is very frequent in computing...
 
 ### Packages with sub packages
 
