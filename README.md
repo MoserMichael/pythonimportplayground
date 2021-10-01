@@ -142,6 +142,12 @@ You can also import all symbols from module_foo right into your own namespace
 from module_foo import *
 ```
 
+Now this form of import has an interesting case: if the module source defines a list variable named  ```__all__```, then this variable lists all symbols exported by the module!
+However this variable is only defined for ```from module_foo *``` import form, The example module does not list ```print_foo``` in it's ```__all__``` variable, however it is still possible to import it by means of  ```from  module_foo import print_foo```
+
+Also the * import does not import symbols with leading underscores, these are respected as module private symbols.
+
+Lots of details here...
 
 ### Multiple imports
 
