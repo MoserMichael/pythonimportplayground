@@ -191,6 +191,8 @@ Technically, importing a package is the same to importing the ```__init__.py``` 
 import package_name.__init__  as package_name
 ```
 
+Most of the following information will be very familiar from the previous explanation of modules:
+
 An imported package foo must be a sub directory directly under any one of the directories listed in the ```sys.path list```, the current directory is always part of that list.
 
 ```
@@ -256,7 +258,9 @@ from  .file1 import  *
 
 This is a relative import, it imports the module file1 in file1.py from the current directory, and adds all symbols to the namespace of the __init__.py file (except for names with a leading underscore, these are treated as package private names). Having these symbols as part of the ```__init__.py``` namespace is the condition for making these symbols available upon import.
 
-I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  _import_all is a function that imports all modules in the same directory as ```__init__.py```. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
+### A generic \_\_init\_\_.py file
+
+I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  ```_import_all``` is a function that imports all modules in the same directory as ```__init__.py```. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
