@@ -260,7 +260,8 @@ This is a relative import, it imports the module file1 in file1.py from the curr
 
 ### A generic \_\_init\_\_.py file
 
-I sometimes forget to include a module from the ```__init__.py``` file, It is possible to include all modules from the same directory as the ```__init__.py``` file. See [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  ```_import_all``` is a function that imports all modules in the same directory as ```__init__.py```. It enumerates all files in that directory, it ignores all files with extenson other than .py and the  ```__init__.py```. First, each python source file is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
+I sometimes forget to include a module from the ```__init__.py``` file, so lets make a generic ```__init__.py``` file.
+See the result of this effort here in [this example](https://github.com/MoserMichael/pythonimportplayground/blob/master/packages/init_import_all/package_foo/__init__.py);  ```_import_all``` is a function that imports all modules in the same directory as ```__init__.py```, except for modules with a leading underscore in their name, as well as the ```__init__.py``` file itself.  First it enumerates all such files with extension .py in that directory.  Each relevant module is loaded explicitly via ```importlib.import_module```, this function returns the module variable for the imported package.
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 

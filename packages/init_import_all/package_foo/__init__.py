@@ -18,7 +18,8 @@ def _import_all():
         base = split[-2]
 
         # import files with extension .py, but not __init__.py
-        if split[-1] == '.py' and base != "__init__":
+        # also file names starting with _ are not treated.
+        if split[-1] == '.py' and base != "__init__" and base[0:1] != "_":
 
             # import module with from the current package.
             mod_var = _importlib.import_module( '.' + base, __package__)
