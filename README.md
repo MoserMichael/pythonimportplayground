@@ -265,7 +265,7 @@ See the result of this effort here in [this example](https://github.com/MoserMic
 
 Next, the namespace of that module is merged with the current namespace, it does so by enumerating all entries of the module variables ```__dict__``` member, and add these to the global namespace returned by the ```global()``` built-in function.
 
-The function also builds the ```__all__``` member of the package, by appending the ```__all__``` member of each module to the ```__all__``` list from the ```__init__.py``` file. 
+The function also builds the ```__all__``` member of the package, if an ```__all__``` global variable has been defined in the module, then it is appended to the ```__all__``` list of the ```__init__.py``` file. 
 
 The ```_import_all``` function from this example is a nice generic function, it buys you some convenience at the expense of the time to load the module, but this kind of trade off is very frequent in computing...
 
