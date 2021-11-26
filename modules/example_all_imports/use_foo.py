@@ -27,6 +27,7 @@ print("module_foo.__name__ : ", module_foo.__name__ )
 print("module_foo.__package__ : ", module_foo.__package__)
 print("module_foo.__cached__ : ", module_foo.__cached__)
 print("module_foo.__loader__ : ", type(module_foo.__loader__) )
+print("dir(module_foo) : ", dir(module_foo))
 
 
 
