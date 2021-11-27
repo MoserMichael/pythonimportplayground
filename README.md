@@ -64,8 +64,8 @@ module_foo.print_foo("some stuff: ", 42)
 module_foo.__dict__ keys:  __name__, __doc__, __package__, __loader__, __spec__, __file__, __cached__, __builtins__, datetime, Foo, print_foo, _internal_print
 ```
 
-This print statements shows all keys of the ```___dict__``` member for the import module variable.
-The ```__dict__``` member is a dictionary and it maps the names of object instance attributes to their implementation. A data attribute is mapped to it's instance object, a member function attribute refers to an instance of class Function. See as follows:
+This print statements shows all keys of the ```___dict__``` attribute for the import module variable.
+The ```__dict__``` attribute is a dictionary and it maps the names of object instance variables names to their value. 
 
 A more cultured way of accessing this information is the built-in [dir](https://docs.python.org/3/library/functions.html#dir) function; The documentation says that for a module object the following info is returned ```If the object is a module object, the list contains the names of the module’s attributes.```
 
